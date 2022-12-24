@@ -1,4 +1,4 @@
-const { createGroupImages, getGroupImagesBL } = require("../businessLogic/images")
+const { createGroupImages, getGroupImagesBL } = require("../businessLogic")
 
 const addImages = async (req, res) => {
     // console.log(req.body)

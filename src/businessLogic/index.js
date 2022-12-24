@@ -9,7 +9,19 @@ const getGroupImagesBL = async (groupId) => {
     return group.images
 }
 
+const getAllGroups = async () => {
+    const groups = await groupDAL.findAll()
+    return groups.map(group => {
+        return {
+            id: group._id.toString(),
+            name: group.name
+        }
+    })
+}
+    
+
 module.exports = {
     createGroupImages,
-    getGroupImagesBL
+    getGroupImagesBL,
+    getAllGroups
 }
