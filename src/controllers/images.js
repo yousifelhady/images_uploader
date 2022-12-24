@@ -1,9 +1,11 @@
 const { createGroupImages, getGroupImagesBL } = require("../businessLogic")
 
 const addImages = async (req, res) => {
-    // console.log(req.body)
-    const group = await createGroupImages(req.body)
-    // console.log(group)
+    const groupName = req.query.group_name
+    const files = req.files
+    // console.log(groupName)
+    // console.log(files)
+    const group = await createGroupImages(groupName, files)
     return res.status(200).json({
         success: true,
         group

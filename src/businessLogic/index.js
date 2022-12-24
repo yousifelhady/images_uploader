@@ -1,6 +1,12 @@
 const groupDAL = require("../dataAccessLayer/models/group/CRUD")
 
-const createGroupImages = async (data) => {
+const createGroupImages = async (groupName, files) => {
+    const data = {
+        group_name: groupName,
+        images: files.map(file => ({
+                image_url: file.link
+            }))
+    }
     return groupDAL.create(data)
 }
 
