@@ -1,4 +1,4 @@
-const { createGroupImages, getGroupImagesBL } = require("../businessLogic")
+const { createGroupImages, getGroupImages } = require("../businessLogic")
 
 const addImages = async (req, res) => {
     const groupName = req.query.group_name
@@ -12,9 +12,9 @@ const addImages = async (req, res) => {
     })
 }
 
-const getGroupImages = async (req, res) => {
+const groupImages = async (req, res) => {
     const groupId = req.params.group_id
-    const groupImages = await getGroupImagesBL(groupId)
+    const groupImages = await getGroupImages(groupId)
     return res.status(200).json({
         images: groupImages
     })
@@ -22,5 +22,5 @@ const getGroupImages = async (req, res) => {
 
 module.exports = {
     addImages,
-    getGroupImages
+    groupImages
 }

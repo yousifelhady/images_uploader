@@ -10,7 +10,7 @@ const createGroupImages = async (groupName, files) => {
     return groupDAL.create(data)
 }
 
-const getGroupImagesBL = async (groupId) => {
+const getGroupImages = async (groupId) => {
     const group = await groupDAL.findById(groupId)
     return group.images
 }
@@ -28,6 +28,6 @@ const getAllGroups = async () => {
 
 module.exports = {
     createGroupImages,
-    getGroupImagesBL,
+    getGroupImages,
     getAllGroups
 }
