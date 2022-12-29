@@ -1,6 +1,9 @@
+const _ = require("lodash")
+const boom = require("../config/boom")
 const groupDAL = require("../dataAccessLayer/models/group/CRUD")
 
 const createGroupImages = async (groupName, files) => {
+    boom.badRequest(_.isNil(files), 'files URLs cannot be empty')
     const data = {
         group_name: groupName,
         images: files.map(file => ({
@@ -12,6 +15,8 @@ const createGroupImages = async (groupName, files) => {
 
 const getGroupImages = async (groupId) => {
     const group = await groupDAL.findById(groupId)
+    const groupNotFound = _.isNil(group)
+    boom.notFound(groupNotFound, `group with id: ${groupId} cannot be found in db`)
     return group.images
 }
 

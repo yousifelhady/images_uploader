@@ -1,6 +1,7 @@
 const express = require("express")
 require("./config/connectMongoose")
 const { errors } = require("celebrate")
+const { errorHandlerMiddleware } = require("./middlewares/errorHandling")
 
 const port = 8080
 var app = express()
@@ -16,6 +17,7 @@ app.use("/groups", require("./routes/groups"))
    it must be placed after routes
 */
 app.use(errors())
+app.use(errorHandlerMiddleware)
 
 app.listen(port, () => {
     console.log("Started application on port %d", port)

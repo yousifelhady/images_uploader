@@ -8,6 +8,13 @@ const validateGroupId = {
   }
 }
 
+const validateGroupName = {
+  query: {
+    group_name: Joi.string().required()
+  }
+}
+
 module.exports = {
-    validateGroupId: celebrate(validateGroupId)
+    validateGroupId: celebrate(validateGroupId),
+    validateGroupName: celebrate(validateGroupName)
 }
