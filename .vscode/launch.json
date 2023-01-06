@@ -7,11 +7,12 @@
         {
             "type": "node",
             "request": "launch",
+            "runtimeVersion": "14.20.0",
             "name": "Launch Program",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/app.js"
+            "program": "${workspaceFolder}/backend/src/app.js"
         }
     ]
 }

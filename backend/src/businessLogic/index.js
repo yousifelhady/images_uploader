@@ -24,7 +24,7 @@ const getAllGroups = async () => {
     const groups = await groupDAL.findAll()
     return groups.map(group => {
         return {
-            id: group._id.toString(),
+            _id: group._id.toString(),
             name: group.name
         }
     })
