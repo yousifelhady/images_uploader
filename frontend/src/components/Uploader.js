@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Uploader = (props) => {
+const Uploader = ({ uploadFiles }) => {
+    const [selectedFiles, setSelectedFiles] = useState([])
+    const [groupName, setGroupName] = useState("")
+
     const handleGroupNameChange = (e) => {
-        props.setGroupName(e.target.value)
+        setGroupName(e.target.value)
     }
 
     const handleFilesChange = (e) => {
-        props.setFilesToUpload(e.target.files)
+        const files = e.target.files
+        const filesArr = Array.from(files)
+        setSelectedFiles(filesArr)
     }
 
     const handleUpload = (e) => {
-        props.uploadFiles()
+        uploadFiles(selectedFiles, groupName)
+        setSelectedFiles([])
+        setGroupName("")
+        document.getElementById("browser").value = ""
     }
 
     return (
         <div>
-            <input value={props.groupName} id="grpName" type="text" placeholder="Enter group name" onChange={handleGroupNameChange}></input>
+            <input type="text" placeholder="Enter group name" value={groupName} onChange={handleGroupNameChange}></input>
             <input id="browser" type="file" multiple="multiple" onChange={handleFilesChange}></input>
             <div>
                 List of Files
                 <ul>
                     {
-                        props.selectedFiles.map(f => {
-                            return <li key={f.name}>{f.name}</li>
+                        selectedFiles.map(file => {
+                            return <li key={file.name}>{file.name}</li>
                         })
                     }
                 </ul>

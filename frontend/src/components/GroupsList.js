@@ -3,7 +3,6 @@ import React from 'react';
 const GroupsList = ({ groups, groupClicked }) => {
     const handleClick = (e) => {
         const groupId = e.target.id
-        // console.log(groupId)
         groupClicked(groupId)
     }
     console.log(groups)

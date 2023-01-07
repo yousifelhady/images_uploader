@@ -7,8 +7,6 @@ import { addImages, getGroupImages, getGroups } from '../services';
 const Container = () => {
     const [groups, setGoups] = useState([])
     const [images, setImages] = useState([])
-    const [selectedFiles, setSelectedFiles] = useState([])
-    const [groupName, setGroupName] = useState("")
     
     useEffect(() => {
         getGroups().then(data => {
@@ -21,41 +19,29 @@ const Container = () => {
         setImages(data.images)
     }, [])
 
-    const handleFilesToUpload = useCallback((files) => {
-        const filesArr = Array.from(files)
-        // console.log(filesArr)
-        setSelectedFiles(filesArr)
-    }, [])
-
-    const handleUploadFiles = useCallback(async () => {
-        // console.log(files)
-        const data = await addImages(selectedFiles, groupName)
+    const handleUploadFiles = useCallback(async (files, groupName) => {
+        const data = await addImages(files, groupName)
         setGoups([...groups, data.group])
-        setSelectedFiles([])
-        setGroupName("")
-    }, [groupName, groups, selectedFiles])
-
-    const handleGroupName = useCallback(() => {
-        // console.log(groupName)
-        setGroupName(groupName)
-    }, [groupName])
+    }, [groups])
 
     return (
         <div>
             <div className='uploader'>
-                <Uploader selectedFiles={selectedFiles} 
-                    setFilesToUpload={handleFilesToUpload} 
+                <Uploader
                     uploadFiles={handleUploadFiles} 
-                    setGroupName={handleGroupName} 
-                    groupName={groupName}
                 />
             </div>
             <div className='parent'>
                 <div className='groupsList'>
-                    <GroupsList  groups={groups} groupClicked={handleGroupClicked}/>
+                    <GroupsList  
+                        groups={groups}
+                        groupClicked={handleGroupClicked}
+                    />
                 </div>
                 <div className='imagesList'>
-                    <ImagesList  images={images}/>
+                    <ImagesList
+                        images={images}
+                    />
                 </div>
             </div>
         </div>
