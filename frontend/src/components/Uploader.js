@@ -10,14 +10,12 @@ const Uploader = (props) => {
     }
 
     const handleUpload = (e) => {
-        props.uploadFiles(props.selectedFiles)
-        // document.getElementById("grpName").value = ""
-        // document.getElementById("browser").value = ""
+        props.uploadFiles()
     }
 
     return (
         <div>
-            <input id="grpName" type="text" placeholder="Enter group name" onChange={handleGroupNameChange}></input>
+            <input value={props.groupName} id="grpName" type="text" placeholder="Enter group name" onChange={handleGroupNameChange}></input>
             <input id="browser" type="file" multiple="multiple" onChange={handleFilesChange}></input>
             <div>
                 List of Files
