@@ -22,6 +22,7 @@ const Container = () => {
     const handleUploadFiles = useCallback(async (files, groupName) => {
         const data = await addImages(files, groupName)
         setGoups([...groups, data.group])
+        setImages(data.group.images)
     }, [groups])
 
     return (
