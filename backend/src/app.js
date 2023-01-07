@@ -1,4 +1,5 @@
 const express = require("express")
+require("dotenv").config()
 require("./config/connectMongoose")
 const { errors } = require("celebrate")
 const { errorHandlerMiddleware } = require("./middlewares/errorHandling")
