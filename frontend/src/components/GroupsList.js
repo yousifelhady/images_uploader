@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useCallback } from 'react'
+import { List, Button } from 'antd'
+
 
 const GroupsList = ({ groups, groupClicked }) => {
-    const handleClick = (e) => {
-        const groupId = e.target.id
-        groupClicked(groupId)
-    }
-    console.log(groups)
-    return (
-        <div>
-            <ul className='no-bullets'>
-                {
-                    groups.map(group => {
-                        return <li onClick={handleClick} id={group._id} key={group._id}>{group.name}</li>
-                    })
-                }
-            </ul>
-        </div>
-    )
+  const handleClick = useCallback((groupId) => {
+    groupClicked(groupId)
+  }, [groupClicked])
+
+  return (
+    <List
+      dataSource={groups}
+      bordered
+      style={{ maxHeight: '585px', overflow: 'auto'}}
+      size='small'
+      renderItem={item => (
+        <List.Item>
+          <List.Item.Meta
+            title={
+              <Button
+                type='text'
+                onClick={() => handleClick(item._id)}
+              >
+                {item.name}
+              </Button>
+            }
+          />
+        </List.Item>
+      )}
+    >
+    </List>
+  )
 }
 
 export default GroupsList

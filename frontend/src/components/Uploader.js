@@ -1,43 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { UploadOutlined } from '@ant-design/icons'
+import { Button, Upload, Input } from 'antd'
 
 const Uploader = ({ uploadFiles }) => {
-    const [selectedFiles, setSelectedFiles] = useState([])
-    const [groupName, setGroupName] = useState("")
+  const [fileList, setfileList] = useState([])
+  const [groupName, setGroupName] = useState("")
+  const [loading, setLoading] = useState(false)
 
-    const handleGroupNameChange = (e) => {
-        setGroupName(e.target.value)
-    }
+  const handleGroupNameChange = (e) => {
+    setGroupName(e.target.value)
+  }
 
-    const handleFilesChange = (e) => {
-        const files = e.target.files
-        const filesArr = Array.from(files)
-        setSelectedFiles(filesArr)
-    }
+  const handleUpload = async () => {
+    setLoading(true)
+    await uploadFiles(fileList, groupName)
+    setLoading(false)
+    setfileList([])
+    setGroupName("")
+  }
 
-    const handleUpload = (e) => {
-        uploadFiles(selectedFiles, groupName)
-        setSelectedFiles([])
-        setGroupName("")
-        document.getElementById("browser").value = ""
-    }
-
-    return (
-        <div>
-            <input type="text" placeholder="Enter group name" value={groupName} onChange={handleGroupNameChange}></input>
-            <input id="browser" type="file" multiple="multiple" onChange={handleFilesChange}></input>
-            <div>
-                List of Files
-                <ul>
-                    {
-                        selectedFiles.map(file => {
-                            return <li key={file.name}>{file.name}</li>
-                        })
-                    }
-                </ul>
-            </div>
-            <button onClick={handleUpload}>Upload</button>
-        </div>
-    )
+  const props = {
+    onRemove: (file) => {
+      const index = fileList.indexOf(file)
+      const newFileList = fileList.slice()
+      newFileList.splice(index, 1)
+      setfileList(newFileList)
+    },
+    beforeUpload: (_, list) => {
+      setfileList([...fileList, ...list])
+    },
+    multiple: true,
+    fileList,
+  }
+  return (
+    <div>
+      <Input required style={{ width: 'auto' }} type="text" placeholder="Enter group name" value={groupName} onChange={handleGroupNameChange}></Input>
+      <Upload {...props}>
+        <Button icon={<UploadOutlined />}>Select File(s)</Button>
+      </Upload>
+      <Button
+        type="primary"
+        onClick={handleUpload}
+        disabled={fileList.length === 0 || !groupName}
+        style={{ marginTop: 16 }}
+        loading={loading}
+      >
+        {loading ? 'Uploading' : 'Start Upload'}
+      </Button>
+    </div>
+  )
 }
 
 export default Uploader

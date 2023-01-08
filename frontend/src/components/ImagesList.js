@@ -1,21 +1,24 @@
 import React from 'react';
+import { Row, Col, Image } from 'antd';
+
 
 const ImagesList = ({ images }) => {
-    return (
-        <div>
-            {
-                images.map(image => {
-                    return <img
-                        id={image._id}
-                        key={image._id}
-                        alt="group-img"
-                        className="image"
-                        src={image.image_url}
-                    />
-                })
-            }
-        </div>
-    )
+  return (
+    <Row gutter={[16, 16]}>
+      {
+        images.map(image => {
+          return (
+            <Col span={8} key={image._id}>
+              <Image
+                key={image._id}
+                src={image.image_url}
+              />
+            </Col>
+          )
+        })
+      }
+    </Row>
+  )
 }
 
 export default ImagesList
