@@ -1,0 +1,198 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.0.0",
+        "title": "Images Uploader App",
+        "description": "An application which can upload multiple images to an images host (ex: imagur) and display the uploaded images in groups.",
+        "contact": {
+            "name": "Yousif Elhady",
+            "email": "yousif.abdelhamed@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "localhost url"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Images"
+        },
+        {
+            "name": "Groups"
+        }
+    ],
+    "paths": {
+        "/groups": {
+            "get": {
+                "tags": ["Groups"],
+                "description": "Retrieve list of groups from the database.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of groups are retrieved from the database.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/groups"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/images/groups/{group_id}": {
+            "get": {
+                "tags": ["Images"],
+                "description": "Retrieve all images of a certain group using its ID.",
+                "parameters": [
+                    {
+                        "name": "group_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Mongo ObjectId of a group of images.",
+                        "schema": {
+                            "$ref": "#/components/schemas/group_id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Images of a certain group are retrieved.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/images"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The passed group_id path parameter was not found in the database, therefore no images to return."
+                    },
+                    "400": {
+                        "description": "The passed group_id path parameter should be valid mongo ObjectId."
+                    }
+                }
+            }
+        },
+        "/images": {
+            "post": {
+                "tags": ["Images"],
+                "description": "Upload multiple images into a group.",
+                "parameters": [
+                    {
+                        "name": "group_name",
+                        "in": "query",
+                        "required": true,
+                        "description": "The name of the group.",
+                        "schema": {
+                            "$ref": "#/components/schemas/group_name"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data" : {
+                            "schema": {
+                                "$ref": "#/components/schemas/imagefile"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Images files are uploaded successfully in a group.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/groupCreated"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "group_name query parameter was not passed or images files are empty."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "groupCreated": {
+                "type": "object",
+                "description": "group object which has a name and list of images objects.",
+                "example": {
+                    "group": {
+                        "_id": "63a73671766c130c3f52ecff",
+                        "name": "Group X",
+                        "images": [
+                            {
+                                "_id": "63a73671766c130c3f52ed00",
+                                "image_url": "http://image"
+                            },
+                            {
+                                "_id": "63a73671766c130c3f52ed01",
+                                "image_url": "http://image"
+                            }
+                        ],
+                        "createdAt": "2022-12-24T17:27:13.197+00:00",
+                        "updatedAt": "2022-12-24T17:27:13.197+00:00"
+                    }
+                }
+            },
+            "groups": {
+                "type": "array",
+                "description": "List of group objects.",
+                "example": {
+                    "groups": [
+                        {
+                            "_id": "63a73671766c130c3f52ed02",
+                            "name": "Group X"
+                        },
+                        {
+                            "_id": "63a73671766c130c3f52ed03",
+                            "name": "Group Y"
+                        }
+                    ]
+                }
+            },
+            "images": {
+                "type": "array",
+                "description": "List of images objects.",
+                "example": {
+                    "images": [
+                        {
+                            "_id": "63a73671766c130c3f52ed04",
+                            "image_url": "http://image"
+                        },
+                        {
+                            "_id": "63a73671766c130c3f52ed05",
+                            "image_url": "http://image"
+                        }
+                    ]
+                }
+            },
+            "group_id": {
+                "type": "string",
+                "description": "Mongo ObjectId which represents the ID of a group.",
+                "example": "63a73671766c130c3f52ed05"
+            },
+            "group_name": {
+                "type": "string",
+                "description": "A string which represents the name of a group to be created.",
+                "example": "Group A"
+            },
+            "imagefile": {
+                "type": "object",
+                "description": "Key/Value pair of the image(s) to be uploaded, where Key is fixed \"image\" and Value is the file path.",
+                "example": {
+                    "image": "C:/img.png"
+                }
+            }
+        }
+    }
+}
