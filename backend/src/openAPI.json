@@ -114,7 +114,7 @@
                         }
                     },
                     "400": {
-                        "description": "group_name query parameter was not passed or images files are empty."
+                        "description": "If group_name query parameter was not passed in the request, or no images files were added in the request, or the size of uploaded payload exceeded the size limit which is configured in the .env file"
                     }
                 }
             }
