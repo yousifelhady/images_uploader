@@ -41,6 +41,7 @@ Head to [frontend](https://github.com/yousifelhady/images_uploader/tree/main/fro
 - Ability to delete a group.
 - Ability to edit the list of group images (add more images to an existing group).
 - Ability to delete a certain image inside a group.
+- Add Search Bar for groups list.
 
 #### Backend Side
 - Enhance unit testing by adding more test suites to each of the developed endpoints covering their happy scenarios and corner cases.
