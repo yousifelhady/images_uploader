@@ -2,15 +2,15 @@
 API Server which serve the application.
 
 ## Tech Stack
-- NodeJS
-- ExpressJS
-- MongoDB
-- Mongoose
-- Multer
-- Multer-storage-imgur
-- Mocha
-- Chai
-- Swagger-ui-express
+- [NodeJS](https://en.wikipedia.org/wiki/Node.js)
+- [ExpressJS](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://www.npmjs.com/package//mongoose)
+- [Multer](https://www.npmjs.com/package/multer)
+- [Multer-storage-imgur](https://www.npmjs.com/package/multer-storage-imgur)
+- [Mocha](https://www.npmjs.com/package/mocha)
+- [Chai](https://www.npmjs.com/package/chai)
+- [Swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
 
 ## APIs Documentation
 APIs are documented using [OpenAPI](https://www.openapis.org/), and visualized using [SwaggerUI](https://www.npmjs.com/package/swagger-ui-express)
