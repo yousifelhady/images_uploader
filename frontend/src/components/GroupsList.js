@@ -2,15 +2,14 @@ import React, { useCallback } from 'react'
 import { List, Button } from 'antd'
 
 const GroupsList = ({ groups, groupClicked }) => {
-  const handleClick = useCallback((groupId) => {
-    groupClicked(groupId)
+  const handleClick = useCallback((groupId, groupName) => {
+    groupClicked(groupId, groupName)
   }, [groupClicked])
 
   return (
     <List
       dataSource={groups}
       bordered
-      style={{ maxHeight: '585px', overflow: 'auto' }}
       size='small'
       renderItem={item => (
         <List.Item>
@@ -18,7 +17,7 @@ const GroupsList = ({ groups, groupClicked }) => {
             title={
               <Button
                 type='text'
-                onClick={() => handleClick(item._id)}
+                onClick={() => handleClick(item._id, item.name)}
               >
                 {item.name}
               </Button>

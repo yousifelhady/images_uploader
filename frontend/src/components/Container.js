@@ -9,6 +9,7 @@ import { css } from "@emotion/css"
 const Container = () => {
   const [groups, setGoups] = useState([])
   const [images, setImages] = useState([])
+  const [selectedGroup, setSelectedGroup] = useState("")
 
   useEffect(() => {
     getGroups().then(data => {
@@ -16,15 +17,17 @@ const Container = () => {
     })
   }, [])
 
-  const handleGroupClicked = useCallback(async (groupId) => {
+  const handleGroupClicked = useCallback(async (groupId, groupName) => {
     const data = await getGroupImages(groupId)
     setImages(data.images)
+    setSelectedGroup(groupName)
   }, [])
 
   const handleUploadFiles = useCallback(async (files, groupName) => {
     const data = await addImages(files, groupName)
     setGoups([...groups, data.group])
     setImages(data.group.images)
+    setSelectedGroup(groupName)
   }, [groups])
 
   return (
@@ -32,7 +35,7 @@ const Container = () => {
       <div
         className={css`
           margin: 1rem;
-          padding: 2rem 2rem;
+          padding: 1rem 1rem;
           text-align: center;
         `}
       >
@@ -50,6 +53,8 @@ const Container = () => {
           className={css`
             padding: 1rem 1rem;
             vertical-align: auto;
+            overflow: auto;
+            max-height: 620px;
             width: 20%;
           `}
         >
@@ -64,15 +69,24 @@ const Container = () => {
             padding: 1rem 1rem;
             vertical-align: auto;
             overflow: auto;
-            max-height: 585px;
+            max-height: 620px;
             width: 80%;
           `}
         >
-          {images.length ?
-            (<ImagesList
-              images={images}
-            />)
-            : (<h3>No Images to show, Please select a group containing images.</h3>)
+          <div
+            className={css`
+              margin: 0rem 0rem 1rem 0rem;
+              padding: 0rem 0rem 1rem 0rem;
+              text-align: left;
+            `}
+          >
+            {selectedGroup && <h2>Group: {selectedGroup}</h2>}
+          </div>
+          {selectedGroup ?
+            images.length ?
+              (<ImagesList images={images} />)
+              : (<h3>Ooops... No images found in this group!</h3>)
+            : (null)
           }
         </div>
       </div>
