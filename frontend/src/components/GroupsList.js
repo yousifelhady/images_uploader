@@ -12,12 +12,11 @@ const GroupsList = ({ groups, groupClicked }) => {
       bordered
       size='small'
       renderItem={item => (
-        <List.Item>
+        <List.Item onClick={() => handleClick(item._id, item.name)}>
           <List.Item.Meta
             title={
               <Button
                 type='text'
-                onClick={() => handleClick(item._id, item.name)}
               >
                 {item.name}
               </Button>
