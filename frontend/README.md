@@ -7,7 +7,7 @@ The frontend was created with [Create React App](https://github.com/facebook/cre
 - [Ant Design System](https://ant.design/)
 - [Axios](https://axios-http.com/docs/intro)
 
-## Available Scripts
+## Scripts
 
 In the project directory, you can run:
 
