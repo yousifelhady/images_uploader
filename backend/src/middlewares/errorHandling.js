@@ -1,3 +1,5 @@
+const { elogger } = require("../config/logger")
+
 const errorHandlerMiddleware = (err, req, res, next) => {
     if (!err) return next()
     var statusCode = 400
@@ -15,6 +17,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
             stack: err.stack
         }
     }
+    elogger.error(payload)
     return res.status(statusCode).json(payload)
 }
 

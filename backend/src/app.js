@@ -5,6 +5,7 @@ const swaggerUi = require("swagger-ui-express")
 const openApi = require("./openAPI")
 const { errors } = require("celebrate")
 const { errorHandlerMiddleware } = require("./middlewares/errorHandling")
+const { ilogger } = require("./config/logger")
 
 const port = 8080
 var app = express()
@@ -24,5 +25,5 @@ app.use(errors())
 app.use(errorHandlerMiddleware)
 
 app.listen(port, () => {
-    console.log("Started application on port %d", port)
+    ilogger.info(`Application started! App is listening to: localhost:${port}`)
 });
