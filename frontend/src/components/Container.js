@@ -45,9 +45,9 @@ const Container = () => {
         <div className='imagesList'>
           {images.length ? (
             <ImagesList
-            images = { images }
-          />
-          ) : (<h3>Ooops ... no images in this group.</h3>)
+              images={images}
+            />
+          ) : (<h3>No Images to show, Please select a group containing images.</h3>)
           }
 
         </div>

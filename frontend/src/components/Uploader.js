@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
-import { Button, Upload, Input } from 'antd'
+import { Button, Upload, Input, message } from 'antd'
 
 const Uploader = ({ uploadFiles }) => {
   const [fileList, setfileList] = useState([])
   const [groupName, setGroupName] = useState("")
   const [loading, setLoading] = useState(false)
+  const allowedFilesFormat = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value)
@@ -19,23 +20,44 @@ const Uploader = ({ uploadFiles }) => {
     setGroupName("")
   }
 
-  const props = {
+  const validateFilesFormat = (files) => {
+    const validFiles = []
+    const nonvalidFiles = []
+    files.forEach(file => {
+      const isValid = allowedFilesFormat.includes(file.type)
+      if (isValid) {
+        validFiles.push(file)
+      } else {
+        nonvalidFiles.push(file)
+      }
+    })
+    return { validFiles, nonvalidFiles }
+  }
+
+  const uploadProps = {
     onRemove: (file) => {
       const index = fileList.indexOf(file)
       const newFileList = fileList.slice()
       newFileList.splice(index, 1)
       setfileList(newFileList)
     },
-    beforeUpload: (_, list) => {
-      setfileList([...fileList, ...list])
+    beforeUpload: (file, files) => {
+      const { validFiles, nonvalidFiles } = validateFilesFormat(files)
+      setfileList([...fileList, ...validFiles])
+      if (nonvalidFiles.includes(file)) {
+        message.error(`Invalid file format: ${file.name}, Allowed file extensions are [${allowedFilesFormat.map(i => " " + i.substring(i.indexOf('/') + 1))}]`, 5)
+      }
+      return false
     },
-    multiple: true,
     fileList,
+    multiple: true,
+    listType: "picture",
+    accept: ".png,.jpg,.jpeg,.gif"
   }
   return (
     <div>
       <Input required style={{ width: 'auto' }} type="text" placeholder="Enter group name" value={groupName} onChange={handleGroupNameChange}></Input>
-      <Upload {...props}>
+      <Upload {...uploadProps} list>
         <Button icon={<UploadOutlined />}>Select File(s)</Button>
       </Upload>
       <Button
