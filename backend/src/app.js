@@ -27,3 +27,5 @@ app.use(errorHandlerMiddleware)
 app.listen(port, () => {
     ilogger.info(`Application started! App is listening to: localhost:${port}`)
 });
+
+module.exports = app
