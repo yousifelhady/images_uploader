@@ -188,10 +188,16 @@
             },
             "imagefile": {
                 "type": "object",
-                "description": "Key/Value pair of the image(s) to be uploaded, where Key is fixed \"image\" and Value is the file path.",
-                "example": {
-                    "image": "C:/img.png"
-                }
+                "properties": {
+                    "image": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "binary"
+                        }
+                    }
+                },
+                "description": "Key/Value pair of the image(s) to be uploaded, where Key is fixed \"image\" and Value is the file path."
             }
         }
     }
