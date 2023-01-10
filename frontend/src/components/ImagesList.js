@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Image } from 'antd';
 
-
 const ImagesList = ({ images }) => {
   return (
     <Row gutter={[16, 16]}>

@@ -4,6 +4,7 @@ import GroupsList from './GroupsList';
 import ImagesList from './ImagesList';
 import { addImages, getGroupImages, getGroups } from '../services';
 import { Divider } from 'antd';
+import { css } from "@emotion/css"
 
 const Container = () => {
   const [groups, setGoups] = useState([])
@@ -28,28 +29,51 @@ const Container = () => {
 
   return (
     <div>
-      <div className='uploader'>
+      <div
+        className={css`
+          margin: 1rem;
+          padding: 2rem 2rem;
+          text-align: center;
+        `}
+      >
         <Uploader
           uploadFiles={handleUploadFiles}
         />
       </div>
       <Divider />
-      <div className='parent'>
-        <div className='groupsList'>
+      <div
+        className={css`
+          display: flex;
+        `}
+      >
+        <div
+          className={css`
+            padding: 1rem 1rem;
+            vertical-align: auto;
+            width: 20%;
+          `}
+        >
           <GroupsList
             groups={groups}
             groupClicked={handleGroupClicked}
           />
         </div>
         <Divider style={{ height: 'auto' }} type='vertical' />
-        <div className='imagesList'>
-          {images.length ? (
-            <ImagesList
+        <div
+          className={css`
+            padding: 1rem 1rem;
+            vertical-align: auto;
+            overflow: auto;
+            max-height: 585px;
+            width: 80%;
+          `}
+        >
+          {images.length ?
+            (<ImagesList
               images={images}
-            />
-          ) : (<h3>No Images to show, Please select a group containing images.</h3>)
+            />)
+            : (<h3>No Images to show, Please select a group containing images.</h3>)
           }
-
         </div>
       </div>
     </div>
