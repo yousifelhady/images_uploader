@@ -49,8 +49,8 @@ Head to [frontend](https://github.com/yousifelhady/images_uploader/tree/main/fro
 - Using secret vault to store sensitive data like `IMGUR_CLIENT_ID` and `MONGO_URI` or use an encryption/decryption algorithm.
 
 #### Frontend Side
-- Responsive UI
-- Add error handling for failures of server calls.
+- Responsive UI.
+- Add error handling for failures of server calls, specially when the limit of uploaded images exceeded the max. limit configured inside `/backend/.env` file.
 
 #### General
 - Add Linting rules for the project files.
