@@ -8,4 +8,11 @@ html {
 body {
   background: #eee;
   padding: 0 16px;
+  position: relative;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 50px;
 }

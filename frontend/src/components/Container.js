@@ -31,7 +31,10 @@ const Container = () => {
   }, [groups])
 
   return (
-    <div>
+    <div className={css`
+        min-height: 84vh;
+      `}
+    >
       <div
         className={css`
           margin: 1rem;
@@ -54,7 +57,7 @@ const Container = () => {
             padding: 1rem 1rem;
             vertical-align: auto;
             overflow: auto;
-            max-height: 620px;
+            max-height: 610px;
             width: 20%;
           `}
         >
@@ -69,7 +72,7 @@ const Container = () => {
             padding: 1rem 1rem;
             vertical-align: auto;
             overflow: auto;
-            max-height: 620px;
+            max-height: 610px;
             width: 80%;
           `}
         >

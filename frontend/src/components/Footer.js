@@ -9,8 +9,10 @@ const Footer = () => {
   return <footer
     className={css`
       text-align: center;
-      width: 100%;
-      height: 2.5rem;
+      width: 99%;
+      height: 50px;
+      position: absolute;
+      bottom: 0;
     `}
   >
     <p
